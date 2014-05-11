@@ -36,7 +36,7 @@ jiraTT.controller('JiraTTPopupCtrl', function ($scope, $http) {
     var issue = false;
     chrome.tabs.query({'active': true}, function(tabs) {
       if (tabs && tabs[0] && tabs[0].url) {
-        var regexp = /jira.jiralabs.com\/browse\/([A-Z]+-[0-9]+)/;
+        var regexp = /\/browse\/([A-Z]+-[0-9]+)/; // @todo (alex): use options.jiraUrl in the regexp.
         var match = regexp.exec(tabs[0].url);
         if (match) {
           issue = match[1];
