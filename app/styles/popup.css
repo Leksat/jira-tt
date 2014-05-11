@@ -1,0 +1,22 @@
+
+input.time {
+  width: 50px;
+}
+
+input.description {
+  width: 270px;
+}
+
+.log-record {
+  padding: 5px;
+  margin: 5px 0;
+  background-color: lightgrey;
+}
+
+body {
+  width: 300px;
+}
+
+.gray {
+  color: gray;
+}
