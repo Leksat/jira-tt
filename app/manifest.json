@@ -1,5 +1,5 @@
 {
-  "name": "Amazee Time Tracker",
+  "name": "Jira Time Tracker",
   "version": "1.0.7",
   "manifest_version": 2,
   "icons": {
@@ -9,7 +9,7 @@
   },
   "browser_action": {
     "default_icon": "images/38.png",
-    "default_title": "Amazee Time Tracker",
+    "default_title": "Jira Time Tracker",
     "default_popup": "src/popup.html"
   },
   "options_page": "src/options.html",

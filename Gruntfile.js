@@ -280,7 +280,7 @@ module.exports = function (grunt) {
         compress: {
             dist: {
                 options: {
-                    archive: 'package/Amazee Time Tracker<%= config.manifest.version %>.zip'
+                    archive: 'package/Jira Time Tracker<%= config.manifest.version %>.zip'
                 },
                 files: [{
                     expand: true,
