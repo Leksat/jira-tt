@@ -1,6 +1,10 @@
 {
   "name": "jira-tt",
-  "version": "0.0.0",
-  "dependencies": {},
+  "version": "0.1.0",
+  "dependencies": {
+    "angular": "~1.2.4",
+    "angular-confirm-click": "~0.0.1",
+    "moment": "~2.6.0"
+  },
   "devDependencies": {}
 }
