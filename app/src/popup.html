@@ -29,9 +29,12 @@
     </span>
   </div>
 </div>
-<button confirm-click="clearLogRecords()" confirm-message="Are you sure?">Clear records</button>
 <div class="gray">Total time till now: {{totalTimeTillNow}}</div>
 <div class="gray">Loggable time till now: {{loggableTimeTillNow}}</div>
+<div>
+  <button confirm-click="clearLogRecords()" confirm-message="Are you sure?">Clear records</button>
+  <button ng-click="saveLogRecords()">Save records</button>
+</div>
 
 </body>
 </html>

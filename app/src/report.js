@@ -75,6 +75,22 @@ jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
       });
     };
 
+    $scope.saveReport = function() {
+      var text = '';
+      angular.forEach($scope.reportRecords, function(reportRecord) {
+        text += '\n'
+            + 'Issue: ' + reportRecord.issue + '\n'
+            + 'Time: ' + reportRecord.time + '\n'
+            + 'Time to log: ' + reportRecord.timeToLog + '\n'
+            + 'Description: ' + reportRecord.description + '\n';
+      });
+      text += '\n'
+          + 'Total: ' + $scope.totalTime + '\n'
+          + 'Loggable: ' + $scope.totalTimeToLog;
+      var filename = 'time-report-' + moment($scope.date, 'DD.MM.YYYY').format('YYYY-MM-DD');
+      saveFile(filename, text);
+    };
+
     $scope.$apply();
   });
 

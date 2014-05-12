@@ -57,3 +57,10 @@ function getMetadataFromDescription(description) {
     issue: issue
   };
 }
+
+function saveFile(filename, text) {
+  var link = document.createElement('a');
+  link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  link.setAttribute('download', filename);
+  link.click();
+}

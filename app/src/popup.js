@@ -69,6 +69,15 @@ jiraTT.controller('JiraTTPopupCtrl', function ($scope, $http) {
     $scope.logRecords = [];
   };
 
+  $scope.saveLogRecords = function() {
+    var text = '';
+    angular.forEach($scope.logRecords, function(logRecord) {
+      text += logRecord.startTime + ' ' + logRecord.description + '\n';
+    });
+    var filename = 'time-records-' + moment().format('YYYY-MM-DD');
+    saveFile(filename, text);
+  };
+
   $scope.$watch('logRecords', function(newValue, oldValue) {
     saveLogRecords(newValue);
   }, true);
