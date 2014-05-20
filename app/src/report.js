@@ -73,6 +73,10 @@ jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
             });
         }
       });
+      // @todo (alex): save to file only if all items were logged correctly.
+      if ($scope.saveReportAsFile) {
+        $scope.saveReport();
+      }
     };
 
     $scope.saveReport = function() {
@@ -87,7 +91,11 @@ jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
       text += '\n'
           + 'Total: ' + $scope.totalTime + '\n'
           + 'Loggable: ' + $scope.totalTimeToLog;
-      var filename = 'time-report-' + moment($scope.date, 'DD.MM.YYYY').format('YYYY-MM-DD');
+      text += '\n\n========\n\nLog records:\n'
+      angular.forEach(loadLogRecords(), function(logRecord) {
+        text += logRecord.startTime + ' ' + logRecord.description + '\n';
+      });
+      var filename = 'jira-time-report-' + moment($scope.date, 'DD.MM.YYYY').format('YYYY-MM-DD');
       saveFile(filename, text);
     };
 
