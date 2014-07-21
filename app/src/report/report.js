@@ -1,17 +1,16 @@
-var jiraTT = angular.module('jiraTT', ['confirmClick']);
 
-jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
+app.controller('ReportController', ['$scope', '$http', 'utils', function ($scope, $http, utils) {
 
-  chrome.storage.sync.get(optionsDefault, function(options) {
-    var logRecords = loadLogRecords().reverse();
+  chrome.storage.sync.get(utils.optionsDefault, function(options) {
+    var logRecords = utils.loadLogRecords().reverse();
     var reportRecords = {};
     var totalMinutes = 0;
     var loggableMinutes = 0;
     angular.forEach(logRecords, function(logRecord, index){
       if (logRecords[index + 1]) {
         var nextLogRecord = logRecords[index + 1];
-        var minutes = timeStringToMinutes(nextLogRecord.startTime) - timeStringToMinutes(logRecord.startTime);
-        var metadata = getMetadataFromDescription(logRecord.description);
+        var minutes = utils.timeStringToMinutes(nextLogRecord.startTime) - utils.timeStringToMinutes(logRecord.startTime);
+        var metadata = utils.getMetadataFromDescription(logRecord.description);
         logRecord.groupKey = metadata.groupKey;
         logRecord.issue = metadata.issue;
         if (!reportRecords[logRecord.groupKey]) {
@@ -32,22 +31,22 @@ jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
 
     angular.forEach(reportRecords, function(reportRecord) {
       reportRecord.ticketUrl = reportRecord.issue ? options.jiraUrl + '/browse/' + reportRecord.issue : '';
-      reportRecord.time = minutesToJiraTime(reportRecord.minutes);
+      reportRecord.time = utils.minutesToJiraTime(reportRecord.minutes);
       reportRecord.timeToLogOriginal = reportRecord.timeToLog = reportRecord.issue ? reportRecord.time : '';
       reportRecord.description = reportRecord.descriptions.filter(function(v, i) {
         return (v === '') || (reportRecord.descriptions.indexOf(v) == i);
       }).join('; ').trim();
     });
     $scope.reportRecords = reportRecords;
-    $scope.totalTime = minutesToJiraTime(totalMinutes);
-    $scope.loggableTime = minutesToJiraTime(loggableMinutes);
+    $scope.totalTime = utils.minutesToJiraTime(totalMinutes);
+    $scope.loggableTime = utils.minutesToJiraTime(loggableMinutes);
 
     $scope.$watch('reportRecords', function(newValue, oldValue) {
       var minutes = 0;
       angular.forEach(newValue, function(logRecord) {
-        minutes += jiraTimeToMinutes(logRecord.timeToLog);
+        minutes += utils.jiraTimeToMinutes(logRecord.timeToLog);
       });
-      $scope.totalTimeToLog = minutesToJiraTime(minutes);
+      $scope.totalTimeToLog = utils.minutesToJiraTime(minutes);
     }, true);
 
     $scope.date = moment().format('DD.MM.YYYY');
@@ -61,7 +60,7 @@ jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
           var data = {
             comment: reportRecord.description ? reportRecord.description : 'Working on issue ' + reportRecord.issue,
             started: moment($scope.date, 'DD.MM.YYYY').format('YYYY-MM-DDT12:00:00.000+0000'),
-            timeSpentSeconds: jiraTimeToMinutes(reportRecord.timeToLog) * 60
+            timeSpentSeconds: utils.jiraTimeToMinutes(reportRecord.timeToLog) * 60
           };
           $http({method: 'POST', url: options.jiraUrl + '/rest/api/2/issue/' + reportRecord.issue + '/worklog', data: data})
             .success(function (data) {
@@ -91,7 +90,7 @@ jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
       text += '\n'
           + 'Total: ' + $scope.totalTime + '\n'
           + 'Loggable: ' + $scope.totalTimeToLog;
-      text += '\n\n========\n\nLog records:\n'
+      text += '\n\n========\n\nLog records:\n';
       angular.forEach(loadLogRecords(), function(logRecord) {
         text += logRecord.startTime + ' ' + logRecord.description + '\n';
       });
@@ -102,4 +101,4 @@ jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
     $scope.$apply();
   });
 
-});
+}]);

@@ -1,6 +1,6 @@
 {
   "name": "Jira Time Tracker",
-  "version": "0.1.3",
+  "version": "2.0.0",
   "manifest_version": 2,
   "icons": {
     "16": "images/16.png",
@@ -10,13 +10,12 @@
   "browser_action": {
     "default_icon": "images/38.png",
     "default_title": "Jira Time Tracker",
-    "default_popup": "src/popup.html"
+    "default_popup": "src/popup/popup.html"
   },
-  "options_page": "src/options.html",
+  "options_page": "src/options/options.html",
   "permissions": [
     "tabs",
-    "*://*/*",
     "storage"
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "content_security_policy": "script-src 'self' https://*.googleapis.com https://*.cloudflare.com 'unsafe-eval'; object-src 'self'"
 }

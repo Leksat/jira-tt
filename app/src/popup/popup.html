@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="jiraTT">
+<html lang="en" ng-app="app">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="../styles/popup.css" />
+  <link rel="stylesheet" type="text/css" href="popup.css" />
 
-  <script src="../bower_components/moment/moment.js"></script>
-  <script src="../bower_components/angular/angular.js"></script>
-  <script src="../bower_components/angular-confirm-click/dist/confirmClick.js"></script>
-  <script src="common.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.min.js"></script>
+  <script src="../app.js"></script>
   <script src="popup.js"></script>
 
 </head>
-<body ng-controller="JiraTTPopupCtrl">
+<body ng-controller="PopupController">
+
+<div class="gray">Total time: {{loggableTimeTillNow}} / {{totalTimeTillNow}}</div>
 
 <button ng-click="newLogRecord()">New record</button>
 <button ng-click="generateReport()">Generate report</button>
+<button ng-click="magic()">magic</button>
+
 <div ng-repeat="logRecord in logRecords" class="log-record">
   <div><input type="text" class="description" ng-model="logRecord.description" /></div>
   <div>
     <input type="text" class="time" ng-model="logRecord.startTime" />
-    <button confirm-click="deleteLogRecord(logRecord)" confirm-message="Are you sure?">Delete</button>
+    <button ng-click="deleteLogRecord(logRecord)">Delete</button>
     <span class="time-info gray">
       [
       <span class="this-record" title="Time spent on this record">{{logRecord.thisRecordTime}}</span>
@@ -28,11 +31,6 @@
       ]
     </span>
   </div>
-</div>
-<div class="gray">Total time till now: {{totalTimeTillNow}}</div>
-<div class="gray">Loggable time till now: {{loggableTimeTillNow}}</div>
-<div>
-  <button confirm-click="clearLogRecords()" confirm-message="Are you sure?">Clear records</button>
 </div>
 
 </body>
