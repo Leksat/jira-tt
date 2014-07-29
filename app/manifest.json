@@ -10,9 +10,9 @@
   "browser_action": {
     "default_icon": "images/38.png",
     "default_title": "Jira Time Tracker",
-    "default_popup": "src/popup/popup.html"
+    "default_popup": "pages/popup/popup.html"
   },
-  "options_page": "src/options/options.html",
+  "options_page": "pages/options/options.html",
   "permissions": [
     "tabs",
     "storage"

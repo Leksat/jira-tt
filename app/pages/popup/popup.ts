@@ -1,18 +1,27 @@
 
-app.controller('PopupController', ['$scope', 'utils', 'LogRecord', function ($scope, utils, LogRecord) {
+/// <reference path="../../../typings/tsd.d.ts" />
+/// <amd-dependency path="../../../bower_components/moment/moment.js"/>
+/// <amd-dependency path="../../../bower_components/angular/angular.js"/>
+import LogRecordsStorage = require('../../lib/LogRecordsStorage');
+import TimeTools = require('../../lib/TimeTools');
+import Utils = require('../../lib/Utils');
 
-  $scope.logRecords = utils.loadLogRecords();
+var app = angular.module('app', []);
+
+app.controller('PopupController', ['$scope', function ($scope) {
+
+  $scope.logRecords = LogRecordsStorage.load();
 
   $scope.totalTimeTillNow = 0;
   $scope.loggableTimeTillNow = 0;
   var issueToGroupTimeMap = {};
-  var prevLogRecord = false;
+  var prevLogRecord: any = false;
   angular.forEach($scope.logRecords, function(logRecord) {
     var prevStartTime = prevLogRecord ? prevLogRecord.startTime : moment().format('H:mm');
-    var minutes = utils.timeStringToMinutes(prevStartTime) - utils.timeStringToMinutes(logRecord.startTime);
-    logRecord.thisRecordTime = utils.minutesToJiraTime(minutes);
+    var minutes = TimeTools.timeStringToMinutes(prevStartTime) - TimeTools.timeStringToMinutes(logRecord.startTime);
+    logRecord.thisRecordTime = TimeTools.minutesToJiraTime(minutes);
     $scope.totalTimeTillNow += minutes;
-    var metadata = utils.getMetadataFromDescription(logRecord.description);
+    var metadata = Utils.getMetadataFromDescription(logRecord.description);
     logRecord.groupKey = metadata.groupKey;
     logRecord.issue = metadata.issue;
     if (logRecord.issue) {
@@ -24,15 +33,15 @@ app.controller('PopupController', ['$scope', 'utils', 'LogRecord', function ($sc
     issueToGroupTimeMap[logRecord.issue] += minutes;
     prevLogRecord = logRecord;
   });
-  $scope.totalTimeTillNow = utils.minutesToJiraTime($scope.totalTimeTillNow);
-  $scope.loggableTimeTillNow = utils.minutesToJiraTime($scope.loggableTimeTillNow);
+  $scope.totalTimeTillNow = TimeTools.minutesToJiraTime($scope.totalTimeTillNow);
+  $scope.loggableTimeTillNow = TimeTools.minutesToJiraTime($scope.loggableTimeTillNow);
 
   angular.forEach($scope.logRecords, function(logRecord) {
-    logRecord.groupRecordsTime = utils.minutesToJiraTime(issueToGroupTimeMap[logRecord.issue]);
+    logRecord.groupRecordsTime = TimeTools.minutesToJiraTime(issueToGroupTimeMap[logRecord.issue]);
   });
 
   $scope.newLogRecord = function() {
-    var issue = false;
+    var issue: any = false;
     chrome.tabs.query({'active': true}, function(tabs) {
       if (tabs && tabs[0] && tabs[0].url) {
         var regexp = /\/browse\/([A-Z]+-[0-9]+)/;
@@ -47,7 +56,7 @@ app.controller('PopupController', ['$scope', 'utils', 'LogRecord', function ($sc
           'description': (issue ? (issue + ' ') : '')
         });
       });
-      document.querySelector('input[type=text]').focus();
+      (<HTMLInputElement> document.querySelector('input[type=text]')).focus();
     });
   };
 
@@ -69,6 +78,8 @@ app.controller('PopupController', ['$scope', 'utils', 'LogRecord', function ($sc
   };
 
   $scope.$watch('logRecords', function(newValue) {
-    utils.saveLogRecords(newValue);
+    LogRecordsStorage.save(newValue);
   }, true);
 }]);
+
+angular.bootstrap(document, ['app']);
