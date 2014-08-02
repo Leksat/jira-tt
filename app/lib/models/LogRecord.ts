@@ -2,7 +2,7 @@
 import ModelBase = require('./ModelBase');
 
 class LogRecord extends ModelBase {
-  dateTime: string = '';
+  startTime: string = '';
   description: string = '';
 }
 

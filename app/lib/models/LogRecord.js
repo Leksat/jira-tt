@@ -9,7 +9,7 @@ define(["require", "exports", './ModelBase'], function(require, exports, ModelBa
         __extends(LogRecord, _super);
         function LogRecord() {
             _super.apply(this, arguments);
-            this.dateTime = '';
+            this.startTime = '';
             this.description = '';
         }
         return LogRecord;
