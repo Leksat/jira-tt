@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="packages/web_components/platform.js"></script>
+    <script src="packages/web_components/dart_support.js"></script>
+    <script type="application/dart" src="popup.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+  </head>
+  <body popup-controller>
+    <log-records list="ctrl.logRecords" on-change="ctrl.save()"></log-records>
+  </body>
+</html>

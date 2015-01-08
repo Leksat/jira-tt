@@ -1,0 +1,10 @@
+name: jira_tt
+version: 0.1.4
+dependencies:
+  exportable: any
+  angular: any
+  lawndart: any
+  web_components: any
+transformers:
+- angular:
+    dart_sdk: "/usr/local/opt/dart/libexec"

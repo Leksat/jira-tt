@@ -1,0 +1,22 @@
+<div id="log-records">
+  <div id="stats">
+    Loggable / total: {{cmp.totalJiraTimeLoggable}} / {{cmp.totalJiraTime}}
+  </div>
+  <div class="controls">
+    <button ng-click="cmp.newLogRecord()">New record</button>
+  </div>
+  <div class="log-records">
+    <div ng-repeat="logRecord in cmp.logRecords">
+      <div class="row">
+        <input type="text" ng-model="logRecord.description" placeholder="KEY-00 description" size="34" class="description">
+      </div>
+      <div class="row">
+        <input type="text" ng-model="logRecord.startTime" placeholder="00:00" size="10" class="time">
+        <confirm-button action="cmp.deleteLogRecord(logRecord)">Delete</confirm-button>
+        <button ng-click="cmp.moveLogRecord('up', logRecord)" ng-disabled="cmp.logRecords.indexOf(logRecord) == 0">&#8593;</button>
+        <button ng-click="cmp.moveLogRecord('down', logRecord)" ng-disabled="cmp.logRecords.indexOf(logRecord) == cmp.logRecords.length - 1">&#8595;</button>
+        [{{logRecord.metadata.jiraTime}}<span ng-if="logRecord.metadata.jiraTime != logRecord.metadata.group.jiraTime"> / {{logRecord.metadata.group.jiraTime}}</span>]
+      </div>
+    </div>
+  </div>
+</div>
