@@ -13,6 +13,9 @@
     "default_popup": "src/popup.html"
   },
   "options_page": "src/options.html",
+  "background": {
+    "page": "src/background.html"
+  },
   "permissions": [
     "tabs",
     "*://*/*",

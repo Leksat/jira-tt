@@ -71,5 +71,8 @@ jiraTT.controller('JiraTTPopupCtrl', function ($scope, $http) {
 
   $scope.$watch('logRecords', function(newValue, oldValue) {
     saveLogRecords(newValue);
+    if (newValue.length > 0) {
+      updateBadge(newValue[0]);
+    }
   }, true);
 });

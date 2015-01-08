@@ -7,6 +7,26 @@ function loadLogRecords() {
   return localStorage['jiraTTLogRecords'] ? JSON.parse(localStorage['jiraTTLogRecords']) : [];
 }
 
+function updateBadge(logRecord) {
+  var description = logRecord.description.trim();
+  var color;
+  if (description.match(/^INTER-[0-9]+/)) {
+    color = '#FFA500'; // Orange
+  } else if (description.match(/^[A-Z]+-[0-9]+/)) {
+    color = '#00FF00'; // Green
+  } else if (description === '') {
+    color = '#000000';
+  } else {
+    color = '#FF0000'; // Blue
+  }
+  chrome.browserAction.setBadgeText({
+    text: description
+  });
+  chrome.browserAction.setBadgeBackgroundColor({
+    color: color
+  });
+}
+
 function saveLogRecords(logRecords) {
   localStorage['jiraTTLogRecords'] = JSON.stringify(logRecords, function (key, val) {
     if (key == '$$hashKey') {
