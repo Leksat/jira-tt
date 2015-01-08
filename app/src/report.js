@@ -35,7 +35,7 @@ jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
       reportRecord.time = minutesToJiraTime(reportRecord.minutes);
       reportRecord.timeToLogOriginal = reportRecord.timeToLog = reportRecord.issue ? reportRecord.time : '';
       reportRecord.description = reportRecord.descriptions.filter(function(v, i) {
-        return (v === '') || (reportRecord.descriptions.indexOf(v) == i);
+        return (v !== '') && (reportRecord.descriptions.indexOf(v) == i);
       }).join('; ').trim();
     });
     $scope.reportRecords = reportRecords;
