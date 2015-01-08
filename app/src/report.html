@@ -1,50 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="jiraTT">
-<head>
-  <meta charset="UTF-8">
-  <title>Time Report</title>
-  <link rel="shortcut icon" href="../images/38.png">
+  <head>
+    <meta charset="UTF-8">
+    <title>Time Report</title>
+    <link rel="shortcut icon" href="../images/38.png">
 
-  <script src="../bower_components/moment/moment.js"></script>
-  <script src="../bower_components/angular/angular.js"></script>
-  <script src="../bower_components/angular-confirm-click/dist/confirmClick.js"></script>
-  <script src="common.js"></script>
-  <script src="report.js"></script>
+    <script src="../bower_components/moment/moment.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-confirm-click/dist/confirmClick.js"></script>
+    <script src="common.js"></script>
+    <script src="report.js"></script>
 
-</head>
-<body ng-controller="JiraTTReportCtrl">
+  </head>
+  <body ng-controller="JiraTTReportCtrl">
 
-<table border="1">
-  <tr>
-    <td>Ticket</td>
-    <td>Description</td>
-    <td>Time</td>
-    <td>Time to log</td>
-  </tr>
-  <tr ng-repeat="reportRecord in reportRecords">
-    <td><a href="{{reportRecord.ticketUrl}}" target="_blank">{{reportRecord.issue}}</a></td>
-    <td><input ng-model="reportRecord.description" /></td>
-    <td>{{reportRecord.time}}</td>
-    <td><input ng-model="reportRecord.timeToLog" /></td>
-  </tr>
-  <tr>
-    <td>Total</td>
-    <td></td>
-    <td>{{totalTime}}</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Loggable</td>
-    <td></td>
-    <td>{{loggableTime}}</td>
-    <td>{{totalTimeToLog}}</td>
-  </tr>
-</table>
+    <table border="1">
+      <tr>
+        <td>Ticket</td>
+        <td>Description</td>
+        <td>Time</td>
+        <td>Time to log</td>
+      </tr>
+      <tr ng-repeat="reportRecord in reportRecords">
+        <td><a href="{{reportRecord.ticketUrl}}" target="_blank">{{reportRecord.issue}}</a></td>
+        <td><input ng-model="reportRecord.description" /></td>
+        <td>{{reportRecord.time}}</td>
+        <td><input ng-model="reportRecord.timeToLog" /></td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td></td>
+        <td>{{totalTime}}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Loggable</td>
+        <td></td>
+        <td>{{loggableTime}}</td>
+        <td>{{totalTimeToLog}}</td>
+      </tr>
+    </table>
 
-<div style="padding: 15px 0;">
-  <div><input type="checkbox" ng-model="saveReportAsFile" /> Save report as file</div>
-  <button confirm-click="logAll()" confirm-message="Sure to log all at {{dayOfWeek}}?">Log all</button> at <input ng-model="date"> ({{dayOfWeek}})
-</div>
+    <div style="padding: 15px 0;">
+      <div><input type="checkbox" ng-model="saveReportAsFile" /> Save report as file</div>
+      <button confirm-click="logAll()" confirm-message="Sure to log all at {{dayOfWeek}}?">Log all</button> at <input ng-model="date"> ({{dayOfWeek}})
+    </div>
 
-</body>
+  </body>
 </html>

@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="jiraTT">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="../styles/popup.css" />
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../styles/popup.css" />
 
-  <script src="../bower_components/moment/moment.js"></script>
-  <script src="../bower_components/angular/angular.js"></script>
-  <script src="../bower_components/angular-confirm-click/dist/confirmClick.js"></script>
-  <script src="common.js"></script>
-  <script src="popup.js"></script>
+    <script src="../bower_components/moment/moment.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-confirm-click/dist/confirmClick.js"></script>
+    <script src="common.js"></script>
+    <script src="popup.js"></script>
 
-</head>
-<body ng-controller="JiraTTPopupCtrl">
+  </head>
+  <body ng-controller="JiraTTPopupCtrl">
 
-<button ng-click="newLogRecord()">New record</button>
-<div class="gray">Loggable time till now: {{loggableTimeTillNow}}</div>
-<button ng-click="generateReport()">Generate report</button>
-<div ng-repeat="logRecord in logRecords" class="log-record">
-  <div><input type="text" class="description" ng-model="logRecord.description" /></div>
-  <div>
-    <input type="text" class="time" ng-model="logRecord.startTime" />
-    <button confirm-click="deleteLogRecord(logRecord)" confirm-message="Are you sure?">Delete</button>
+    <button ng-click="newLogRecord()">New record</button>
+    <div class="gray">Loggable time till now: {{loggableTimeTillNow}}</div>
+    <button ng-click="generateReport()">Generate report</button>
+    <div ng-repeat="logRecord in logRecords" class="log-record">
+      <div><input type="text" class="description" ng-model="logRecord.description" /></div>
+      <div>
+        <input type="text" class="time" ng-model="logRecord.startTime" />
+        <button confirm-click="deleteLogRecord(logRecord)" confirm-message="Are you sure?">Delete</button>
     <span class="time-info gray">
       [
       <span class="this-record" title="Time spent on this record">{{logRecord.thisRecordTime}}</span>
@@ -28,12 +28,12 @@
       <span class ="group-records" title="time spent on this ticket/group">{{logRecord.groupRecordsTime}}</span>
       ]
     </span>
-  </div>
-</div>
-<div class="gray">Total time till now: {{totalTimeTillNow}}</div>
-<div>
-  <button confirm-click="clearLogRecords()" confirm-message="Are you sure?">Clear records</button>
-</div>
+      </div>
+    </div>
+    <div class="gray">Total time till now: {{totalTimeTillNow}}</div>
+    <div>
+      <button confirm-click="clearLogRecords()" confirm-message="Are you sure?">Clear records</button>
+    </div>
 
-</body>
+  </body>
 </html>
