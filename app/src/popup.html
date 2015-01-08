@@ -13,9 +13,9 @@
   </head>
   <body ng-controller="JiraTTPopupCtrl">
 
-    <div class="gray">Loggable time till now: {{loggableTimeTillNow}}</div>
     <button ng-click="newLogRecord()">New record</button>
     <button ng-click="generateReport()">Generate report</button>
+    <div class="gray">Loggable time till now: {{loggableTimeTillNow}}</div>
     <div ng-repeat="logRecord in logRecords" class="log-record">
       <div><input type="text" class="description" ng-model="logRecord.description" /></div>
       <div>
