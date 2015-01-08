@@ -37,6 +37,9 @@ jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
       reportRecord.description = reportRecord.descriptions.filter(function(v, i) {
         return (v !== '') && (reportRecord.descriptions.indexOf(v) == i);
       }).join('; ').trim();
+      if (reportRecord.description === '' && reportRecord.issue) {
+        reportRecord.description = 'Working on issue ' + reportRecord.issue;
+      }
     });
     $scope.reportRecords = reportRecords;
     $scope.totalTime = minutesToJiraTime(totalMinutes);
@@ -59,7 +62,7 @@ jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
       angular.forEach($scope.reportRecords, function(reportRecord) {
         if (reportRecord.issue) {
           var data = {
-            comment: reportRecord.description ? reportRecord.description : 'Working on issue ' + reportRecord.issue,
+            comment: reportRecord.description,
             started: moment($scope.date, 'DD.MM.YYYY').format('YYYY-MM-DDT12:00:00.000+0000'),
             timeSpentSeconds: jiraTimeToMinutes(reportRecord.timeToLog) * 60
           };
