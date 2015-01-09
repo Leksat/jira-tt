@@ -1,6 +1,7 @@
 
 var optionsDefault = {
-  jiraUrl: ''
+  jiraUrl: '',
+  jiraLogin: ''
 };
 
 function loadLogRecords() {
@@ -83,4 +84,14 @@ function saveFile(filename, text) {
   link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
   link.setAttribute('download', filename);
   link.click();
+}
+
+function formatErrorMessage(response, status) {
+  var message = 'Error [' + status + ']: ';
+  if (typeof(response.message) == 'string') {
+    message += response.message;
+  } else if (typeof(response.errorMessages) == 'object') {
+    message += response.errorMessages.join(' | ');
+  }
+  return message;
 }

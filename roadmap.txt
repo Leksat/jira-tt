@@ -2,7 +2,7 @@
 + move totals to the top
 + fix ;;;;; issue
 + save as file checked by default
-> when error on time-logging: try to log via tempo rest api, report error if no success
++ when error on time-logging: try to log via tempo rest api, report error if no success
 - clear log records if file saved and all logged successfully
 - move up/down buttons
 - templates

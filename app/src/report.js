@@ -60,6 +60,9 @@ jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
 
     $scope.logAll = function() {
       angular.forEach($scope.reportRecords, function(reportRecord) {
+        if (reportRecord.status == 'Logged') {
+          return;
+        }
         if (reportRecord.issue) {
           var data = {
             comment: reportRecord.description,
@@ -67,16 +70,50 @@ jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
             timeSpentSeconds: jiraTimeToMinutes(reportRecord.timeToLog) * 60
           };
           $http({method: 'POST', url: options.jiraUrl + '/rest/api/2/issue/' + reportRecord.issue + '/worklog', data: data})
-            .success(function (data) {
-              // @todo (alex): aware user of success.
+            .success(function () {
+              reportRecord.status = 'Logged';
             })
-            .error(function (data, status) {
-              console.log('error', data, status);
-              // @todo (alex): aware user of errors (data.errorMessages || status).
+            .error(function (response, status) {
+                if (status == 401) {
+                  reportRecord.status = formatErrorMessage(response, status);
+                  return;
+                }
+
+                // If ticket is closed, normal Jira API does not allow to edit
+                // issues. Try use Tempo plugin API.
+                reportRecord.status = 'Retrying...';
+                var date = moment($scope.date, 'DD.MM.YYYY').format('DD/MMM/YY');
+                var data = {
+                  user: 'atkachev', // todo: setting
+                  issue: reportRecord.issue,
+                  date: date,
+                  enddate: date,
+                  time: reportRecord.timeToLog,
+                  comment: reportRecord.description
+                };
+                $http({
+                  method: 'POST',
+                  url: options.jiraUrl + '/rest/tempo-rest/1.0/worklogs/' + reportRecord.issue,
+                  data: data,
+                  transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj)
+                      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                  },
+                  headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+                })
+                  .success(function () {
+                      reportRecord.status = 'Logged';
+                  })
+                  .error(function (response, status) {
+                    reportRecord.status = formatErrorMessage(response, status);
+                  });
+
+
             });
         }
       });
-      // @todo (alex): save to file only if all items were logged correctly.
       if ($scope.saveReportAsFile) {
         $scope.saveReport();
       }

@@ -20,12 +20,14 @@
         <td>Description</td>
         <td>Time</td>
         <td>Time to log</td>
+        <td>Status</td>
       </tr>
       <tr ng-repeat="reportRecord in reportRecords">
         <td><a href="{{reportRecord.ticketUrl}}" target="_blank">{{reportRecord.issue}}</a></td>
         <td><input ng-model="reportRecord.description" /></td>
         <td>{{reportRecord.time}}</td>
         <td><input ng-model="reportRecord.timeToLog" /></td>
+        <td>{{reportRecord.status}}</td>
       </tr>
       <tr>
         <td>Total</td>
