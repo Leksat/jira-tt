@@ -3,6 +3,9 @@
 + fix ;;;;; issue
 + save as file checked by default
 + when error on time-logging: try to log via tempo rest api, report error if no success
+! fix confirm-button
+  - make height constant
+  - don't disable after used
 - clear log records if file saved and all logged successfully
 - move up/down buttons
 - templates
