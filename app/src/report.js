@@ -84,7 +84,7 @@ jiraTT.controller('JiraTTReportCtrl', function ($scope, $http) {
                 reportRecord.status = 'Retrying...';
                 var date = moment($scope.date, 'DD.MM.YYYY').format('DD/MMM/YY');
                 var data = {
-                  user: 'atkachev', // todo: setting
+                  user: options.jiraLogin,
                   issue: reportRecord.issue,
                   date: date,
                   enddate: date,
