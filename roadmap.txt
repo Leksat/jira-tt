@@ -1,0 +1,13 @@
++ green-loggable/orange-internal/red-idle/black-empty colors for badge
++ move totals to the top
++ fix ;;;;; issue
++ save as file checked by default
+> when error on time-logging: try to log via tempo rest api, report error if no success
+- clear log records if file saved and all logged successfully
+- move up/down buttons
+- templates
+- highlight records from the same group as currently focused
+- update time reactively
+- add day/week plan + tie with totals
+- handle "Start progress" click
+- button for re-starting existing record
