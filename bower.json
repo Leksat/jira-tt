@@ -1,6 +1,6 @@
 {
   "name": "jira-tt",
-  "version": "0.1.0",
+  "version": "0.1.6",
   "dependencies": {
     "angular": "~1.2.4",
     "angular-confirm-click": "git@github.com:Leksat/angular-confirm-click.git#=0.0.5",
