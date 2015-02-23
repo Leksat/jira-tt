@@ -3,10 +3,13 @@
 + fix ;;;;; issue
 + save as file checked by default
 + when error on time-logging: try to log via tempo rest api, report error if no success
-! fix confirm-button
-  - make height constant
-  - don't disable after used
++ fix confirm-button
+  + make height constant
+  + don't disable after used
+! check closed issues logging: Failed to load resource: the server responded with a status of 400 (Bad Request)
+- ticket nr is not prefilled when there are more 1 tabs
 - clear log records if file saved and all logged successfully
+- set on-hover-message
 - move up/down buttons
 - templates
 - highlight records from the same group as currently focused
